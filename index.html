@@ -1,11 +1,203 @@
-<html>
-  <header>
-    <link rel = "sytlesheet" href="style.css"/>
-  </header>
-  <body>
-    <h1>The Doccy Poo Micro Site</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hazrd Labs – Learn Game Dev</title>
 
-    <p>This is a cool site.</p>
-  </body>
-  <footer></footer>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0d0d0d;
+        color: #fff;
+        scroll-behavior: smooth;
+    }
+
+    /* Sticky Nav */
+    nav {
+        position: sticky;
+        top: 0;
+        background: #111;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        border-bottom: 2px solid #444;
+    }
+
+    nav a {
+        color: #fff;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    nav a:hover {
+        color: #00eaff;
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(135deg, #1a1a1a, #222, #111);
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+    }
+
+    .btn-row {
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 15px 25px;
+        margin: 10px;
+        background: #00eaff;
+        color: #000;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        background: #00bcd4;
+    }
+
+    /* Section Styling */
+    section {
+        padding: 80px 20px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        border-left: 5px solid #00eaff;
+        padding-left: 10px;
+    }
+
+    pre {
+        background: #222;
+        padding: 15px;
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+
+    .asset-box {
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px 0;
+        border: 1px solid #333;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Sticky Nav -->
+<nav>
+    <div><strong>Hazrd Labs</strong></div>
+    <div>
+        <a href="#unity">Unity</a>
+        <a href="#godot">Godot</a>
+        <a href="#python">Python</a>
+        <a href="#assets">Assets</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>Hazrd Labs</h1>
+    <p>A game dev haven for kids 8–14. Learn Unity, Godot, and Python by building real games.</p>
+
+    <div class="btn-row">
+        <a class="btn" href="#unity">Unity Zone</a>
+        <a class="btn" href="#godot">Godot Zone</a>
+        <a class="btn" href="#python">Python Zone</a>
+    </div>
+</div>
+
+<!-- Unity Section -->
+<section id="unity">
+    <h2>Unity Zone</h2>
+    <p>Learn C# and build 2D games with Unity.</p>
+
+    <h3>Player Movement Example</h3>
+    <pre><code>
+using UnityEngine;
+
+public class PlayerMove : MonoBehaviour {
+    public float speed = 5f;
+
+    void Update() {
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        transform.Translate(new Vector3(x, y, 0) * speed * Time.deltaTime);
+    }
+}
+    </code></pre>
+</section>
+
+<!-- Godot Section -->
+<section id="godot">
+    <h2>Godot Zone</h2>
+    <p>Use GDScript to create awesome 2D games.</p>
+
+    <h3>Player Movement Example</h3>
+    <pre><code>
+extends CharacterBody2D
+
+var speed = 200
+
+func _physics_process(delta):
+    var input = Vector2(
+        Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+        Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+    )
+    velocity = input.normalized() * speed
+    move_and_slide()
+    </code></pre>
+</section>
+
+<!-- Python Section -->
+<section id="python">
+    <h2>Python Zone</h2>
+    <p>Start coding with Python and make simple games using Pygame.</p>
+
+    <h3>First Python Program</h3>
+    <pre><code>
+print("Welcome to Hazrd Labs!")
+    </code></pre>
+</section>
+
+<!-- Assets Section -->
+<section id="assets">
+    <h2>Asset Downloads</h2>
+    <div class="asset-box">🎨 Character Sprites</div>
+    <div class="asset-box">🧱 Tilemaps</div>
+    <div class="asset-box">🔊 Sound Effects</div>
+    <div class="asset-box">📦 UI Packs</div>
+</section>
+
+</body>
 </html>
