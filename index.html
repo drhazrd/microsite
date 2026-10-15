@@ -6,115 +6,164 @@
 <title>Hazrd Labs – Learn Game Dev</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #0d0d0d;
-        color: #fff;
-        scroll-behavior: smooth;
-    }
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #0d0d0d;
+    color: #fff;
+    scroll-behavior: smooth;
+}
 
-    /* Sticky Nav */
-    nav {
-        position: sticky;
-        top: 0;
-        background: #111;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 1000;
-        border-bottom: 2px solid #444;
-    }
+/* STICKY NAV */
+nav {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-bottom: 2px solid #333;
+}
 
-    nav a {
-        color: #fff;
-        margin: 0 10px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.3s;
-    }
+nav a {
+    color: #fff;
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-    nav a:hover {
-        color: #00eaff;
-    }
+nav a:hover {
+    color: #00eaff;
+}
 
-    /* Hero Section */
-    .hero {
-        height: 90vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: linear-gradient(135deg, #1a1a1a, #222, #111);
-    }
+/* HERO SECTION WITH BLUR IMAGE */
+.hero {
+    height: 90vh;
+    background: url('img/hero.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
 
-    .hero h1 {
-        font-size: 3rem;
-        margin-bottom: 10px;
-    }
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(6px);
+}
 
-    .hero p {
-        font-size: 1.2rem;
-        max-width: 600px;
-    }
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
 
-    .btn-row {
-        margin-top: 30px;
-    }
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
 
-    .btn {
-        padding: 15px 25px;
-        margin: 10px;
-        background: #00eaff;
-        color: #000;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-        text-decoration: none;
-    }
+.hero p {
+    font-size: 1.3rem;
+    max-width: 600px;
+}
 
-    .btn:hover {
-        background: #00bcd4;
-    }
+/* BUTTONS */
+.btn-row {
+    margin-top: 30px;
+}
 
-    /* Section Styling */
-    section {
-        padding: 80px 20px;
-        max-width: 900px;
-        margin: auto;
-    }
+.btn {
+    padding: 15px 25px;
+    margin: 10px;
+    background: #00eaff;
+    color: #000;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
 
-    h2 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        border-left: 5px solid #00eaff;
-        padding-left: 10px;
-    }
+.btn:hover {
+    background: #00bcd4;
+}
 
-    pre {
-        background: #222;
-        padding: 15px;
-        border-radius: 8px;
-        overflow-x: auto;
-    }
+/* SECTIONS */
+section {
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: auto;
+}
 
-    .asset-box {
-        background: #1a1a1a;
-        padding: 20px;
-        border-radius: 10px;
-        margin: 10px 0;
-        border: 1px solid #333;
-    }
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    border-left: 5px solid #00eaff;
+    padding-left: 10px;
+}
+
+/* IMAGE BANNERS */
+.banner {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+/* COLLAPSIBLE CODE BOXES */
+.collapsible {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 1px solid #333;
+}
+
+.collapsible:hover {
+    background: #222;
+}
+
+.content {
+    display: none;
+    padding: 15px;
+    background: #111;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+pre {
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+/* ASSET BOXES */
+.asset-box {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px 0;
+    border: 1px solid #333;
+}
 </style>
 </head>
 
 <body>
 
-<!-- Sticky Nav -->
+<!-- NAV -->
 <nav>
     <div><strong>Hazrd Labs</strong></div>
     <div>
@@ -125,25 +174,29 @@
     </div>
 </nav>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="hero">
-    <h1>Hazrd Labs</h1>
-    <p>A game dev haven for kids 8–14. Learn Unity, Godot, and Python by building real games.</p>
+    <div class="hero-content">
+        <h1>Hazrd Labs</h1>
+        <p>A game dev haven for kids 8–14. Learn Unity, Godot, and Python by building real games.</p>
 
-    <div class="btn-row">
-        <a class="btn" href="#unity">Unity Zone</a>
-        <a class="btn" href="#godot">Godot Zone</a>
-        <a class="btn" href="#python">Python Zone</a>
+        <div class="btn-row">
+            <a class="btn" href="#unity">Unity Zone</a>
+            <a class="btn" href="#godot">Godot Zone</a>
+            <a class="btn" href="#python">Python Zone</a>
+        </div>
     </div>
 </div>
 
-<!-- Unity Section -->
+<!-- UNITY -->
 <section id="unity">
+    <div class="banner" style="background-image:url('img/unity.png');"></div>
     <h2>Unity Zone</h2>
     <p>Learn C# and build 2D games with Unity.</p>
 
-    <h3>Player Movement Example</h3>
-    <pre><code>
+    <div class="collapsible">▶ Player Movement Example</div>
+    <div class="content">
+        <pre><code>
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
@@ -155,16 +208,32 @@ public class PlayerMove : MonoBehaviour {
         transform.Translate(new Vector3(x, y, 0) * speed * Time.deltaTime);
     }
 }
-    </code></pre>
+        </code></pre>
+    </div>
+
+    <div class="collapsible">▶ Collectible Script</div>
+    <div class="content">
+        <pre><code>
+using UnityEngine;
+
+public class Collect : MonoBehaviour {
+    void OnTriggerEnter2D(Collider2D col) {
+        Destroy(gameObject);
+    }
+}
+        </code></pre>
+    </div>
 </section>
 
-<!-- Godot Section -->
+<!-- GODOT -->
 <section id="godot">
+    <div class="banner" style="background-image:url('img/godot.png');"></div>
     <h2>Godot Zone</h2>
     <p>Use GDScript to create awesome 2D games.</p>
 
-    <h3>Player Movement Example</h3>
-    <pre><code>
+    <div class="collapsible">▶ Player Movement (GDScript)</div>
+    <div class="content">
+        <pre><code>
 extends CharacterBody2D
 
 var speed = 200
@@ -176,21 +245,49 @@ func _physics_process(delta):
     )
     velocity = input.normalized() * speed
     move_and_slide()
-    </code></pre>
+        </code></pre>
+    </div>
 </section>
 
-<!-- Python Section -->
+<!-- PYTHON -->
 <section id="python">
+    <div class="banner" style="background-image:url('img/python.png');"></div>
     <h2>Python Zone</h2>
     <p>Start coding with Python and make simple games using Pygame.</p>
 
-    <h3>First Python Program</h3>
-    <pre><code>
+    <div class="collapsible">▶ First Python Program</div>
+    <div class="content">
+        <pre><code>
 print("Welcome to Hazrd Labs!")
-    </code></pre>
+        </code></pre>
+    </div>
+
+    <div class="collapsible">▶ Pygame Character Move</div>
+    <div class="content">
+        <pre><code>
+import pygame
+pygame.init()
+
+screen = pygame.display.set_mode((600,400))
+player = pygame.Rect(300,200,40,40)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]: player.x -= 5
+    if keys[pygame.K_RIGHT]: player.x += 5
+
+    screen.fill((0,0,0))
+    pygame.draw.rect(screen,(0,255,0),player)
+    pygame.display.update()
+        </code></pre>
+    </div>
 </section>
 
-<!-- Assets Section -->
+<!-- ASSETS -->
 <section id="assets">
     <h2>Asset Downloads</h2>
     <div class="asset-box">🎨 Character Sprites</div>
@@ -198,6 +295,18 @@ print("Welcome to Hazrd Labs!")
     <div class="asset-box">🔊 Sound Effects</div>
     <div class="asset-box">📦 UI Packs</div>
 </section>
+
+<script>
+/* COLLAPSIBLE PANELS */
+const collapsibles = document.querySelectorAll(".collapsible");
+collapsibles.forEach(col => {
+    col.addEventListener("click", () => {
+        col.classList.toggle("active");
+        const content = col.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+    });
+});
+</script>
 
 </body>
 </html>

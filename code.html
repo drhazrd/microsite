@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hazrd Labs Code Lessons</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: #fff;
+    scroll-behavior: smooth;
+}
+
+/* NAV */
+nav {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #333;
+}
+
+nav a {
+    color: #fff;
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #00eaff;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+header h1 {
+    font-size: 3rem;
+}
+
+/* COLLAPSIBLE */
+.collapsible {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border: 1px solid #333;
+}
+
+.collapsible:hover {
+    background: #222;
+}
+
+.content {
+    display: none;
+    padding: 15px;
+    background: #111;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+pre {
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div><strong>Hazrd Labs</strong></div>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="code.html">Code Lessons</a>
+    </div>
+</nav>
+
+<header>
+    <h1>Code Lessons</h1>
+    <p>Unity • Godot • Python</p>
+</header>
+
+<section>
+
+    <h2>Unity</h2>
+
+    <div class="collapsible">▶ Player Movement</div>
+    <div class="content">
+        <pre><code>
+using UnityEngine;
+
+public class PlayerMove : MonoBehaviour {
+    public float speed = 5f;
+
+    void Update() {
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        transform.Translate(new Vector3(x, y, 0) * speed * Time.deltaTime);
+    }
+}
+        </code></pre>
+    </div>
+
+    <div class="collapsible">▶ Collectible Script</div>
+    <div class="content">
+        <pre><code>
+using UnityEngine;
+
+public class Collect : MonoBehaviour {
+    void OnTriggerEnter2D(Collider2D col) {
+        Destroy(gameObject);
+    }
+}
+        </code></pre>
+    </div>
+
+    <h2>Godot</h2>
+
+    <div class="collapsible">▶ Player Movement (GDScript)</div>
+    <div class="content">
+        <pre><code>
+extends CharacterBody2D
+
+var speed = 200
+
+func _physics_process(delta):
+    var input = Vector2(
+        Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
+        Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+    )
+    velocity = input.normalized() * speed
+    move_and_slide()
+        </code></pre>
+    </div>
+
+    <h2>Python</h2>
+
+    <div class="collapsible">▶ First Python Program</div>
+    <div class="content">
+        <pre><code>
+print("Welcome to Hazrd Labs!")
+        </code></pre>
+    </div>
+
+    <div class="collapsible">▶ Pygame Movement</div>
+    <div class="content">
+        <pre><code>
+import pygame
+pygame.init()
+
+screen = pygame.display.set_mode((600,400))
+player = pygame.Rect(300,200,40,40)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]: player.x -= 5
+    if keys[pygame.K_RIGHT]: player.x += 5
+
+    screen.fill((0,0,0))
+    pygame.draw.rect(screen,(0,255,0),player)
+    pygame.display.update()
+        </code></pre>
+    </div>
+
+</section>
+
+<script>
+const collapsibles = document.querySelectorAll(".collapsible");
+collapsibles.forEach(col => {
+    col.addEventListener("click", () => {
+        const content = col.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+    });
+});
+</script>
+
+</body>
+</html>

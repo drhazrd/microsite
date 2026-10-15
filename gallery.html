@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hazrd Labs Gallery</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: #fff;
+    scroll-behavior: smooth;
+}
+
+/* NAV */
+nav {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #333;
+}
+
+nav a {
+    color: #fff;
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #00eaff;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+header h1 {
+    font-size: 3rem;
+}
+
+/* GALLERY */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.gallery-item {
+    text-align: center;
+}
+
+.gallery-item img {
+    width: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    filter: blur(0px);
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+    filter: blur(2px);
+}
+
+.gallery-item p {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+/* MODAL */
+#imgModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+#imgModal img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000;
+}
+
+.modal-controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.modal-btn {
+    padding: 12px 20px;
+    background: #00eaff;
+    color: #000;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+}
+
+.modal-btn:hover {
+    background: #00bcd4;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div><strong>Hazrd Labs</strong></div>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="code.html">Code Lessons</a>
+    </div>
+</nav>
+
+<header>
+    <h1>Image Pack Gallery</h1>
+    <p>Click any pack to preview and download.</p>
+</header>
+
+<section class="gallery-grid">
+
+    <div class="gallery-item">
+        <img src="img/placeholder1.jpg" onclick="openModal(this.src)">
+        <p>Fantasy Characters Pack</p>
+    </div>
+
+    <div class="gallery-item">
+        <img src="img/placeholder2.jpg" onclick="openModal(this.src)">
+        <p>Pixel Tileset Pack</p>
+    </div>
+
+    <div class="gallery-item">
+        <img src="img/placeholder3.jpg" onclick="openModal(this.src)">
+        <p>UI Icons Pack</p>
+    </div>
+
+    <div class="gallery-item">
+        <img src="img/placeholder4.jpg" onclick="openModal(this.src)">
+        <p>Monster Sprites Pack</p>
+    </div>
+
+</section>
+
+<!-- MODAL -->
+<div id="imgModal">
+    <div>
+        <img id="modalImg" src="">
+        <div class="modal-controls">
+            <a id="downloadBtn" class="modal-btn" download>Download</a>
+            <a class="modal-btn" onclick="closeModal()">Close</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function openModal(src) {
+    document.getElementById("modalImg").src = src;
+    document.getElementById("downloadBtn").href = src;
+    document.getElementById("imgModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("imgModal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
