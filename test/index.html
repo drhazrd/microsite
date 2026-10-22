@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazrd Labs Academy • Game Development for Creators</title>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #050914;
+            --bg-card: rgba(13, 20, 37, 0.7);
+            --cyan: #00eaff;
+            --cyan-glow: rgba(0, 234, 255, 0.25);
+            --purple: #9d72ff;
+            --purple-glow: rgba(157, 114, 255, 0.25);
+            --green: #2bfd9c;
+            --orange: #ffb84d;
+            --pink: #ff5277;
+            
+            --glass: rgba(255, 255, 255, 0.04);
+            --glass-hover: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.1);
+            --border-highlight: rgba(0, 234, 255, 0.3);
+            
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1a2744 0%, transparent 60%),
+                radial-gradient(circle at 85% 30%, rgba(157, 114, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 15% 70%, rgba(0, 234, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, #080f20 0%, #040608 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050914;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan);
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1200px, 92%);
+            padding: 12px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-radius: 999px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(13, 20, 37, 0.75);
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i {
+            font-size: 1.4rem;
+            text-shadow: 0 0 10px var(--cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+            text-shadow: 0 0 8px var(--cyan-glow);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 20px 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(0, 234, 255, 0.08);
+            border: 1px solid rgba(0, 234, 255, 0.25);
+            color: var(--cyan);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, #ffffff 30%, #a5f3fc 70%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.05rem, 2vw, 1.3rem);
+            color: var(--text-sub);
+            line-height: 1.7;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cyan), #00b4d8);
+            color: #030712;
+            box-shadow: 0 4px 20px var(--cyan-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 234, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* SECTION STYLING */
+        section {
+            padding: 90px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .section-sub {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+        }
+
+        /* GRID & CARDS */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-highlight);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 25px var(--cyan-glow);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header-icon {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .card p.path-subtitle {
+            color: var(--cyan);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .card p.card-desc {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            margin-top: 15px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress {
+            height: 10px;
+            background: #151d30;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            transition: width 1s ease-in-out;
+        }
+
+        /* ACCORDION */
+        .accordion {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .accordion-item {
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(13, 20, 37, 0.6);
+            border: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .accordion-header {
+            padding: 22px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            user-select: none;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--cyan);
+        }
+
+        .accordion-header .icon-toggle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        .accordion-item.active .icon-toggle {
+            transform: rotate(45deg);
+            background: var(--cyan);
+            color: #000;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+            background: rgba(5, 9, 20, 0.4);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1500px;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .lesson {
+            padding: 28px;
+            border-top: 1px solid var(--border);
+            color: var(--text-sub);
+            font-size: 0.98rem;
+        }
+
+        .lesson p {
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .lesson ul {
+            margin-top: 10px;
+            padding-left: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .lesson li::marker {
+            color: var(--cyan);
+        }
+
+        /* CODE BLOCK WITH COPY */
+        .code-container {
+            position: relative;
+            margin-top: 16px;
+        }
+
+        pre {
+            background: #090d16;
+            padding: 18px 20px;
+            border-radius: 14px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        /* SEARCH & ASSETS */
+        .asset-search-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .search {
+            width: 100%;
+            padding: 16px 20px 16px 48px;
+            border-radius: 16px;
+            background: rgba(13, 20, 37, 0.8);
+            border: 1px solid var(--border);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px var(--cyan-glow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .asset-card {
+            overflow: hidden;
+            padding: 0;
+            border-radius: 20px;
+        }
+
+        .asset-img-wrapper {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+            background: #0d1527;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .asset-img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d182e, #1a2947);
+            color: var(--cyan);
+            gap: 10px;
+            font-size: 2.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .asset-card:hover .asset-img-placeholder {
+            transform: scale(1.08);
+        }
+
+        .asset-body {
+            padding: 20px;
+        }
+
+        .asset-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .asset-body p {
+            color: var(--text-sub);
+            font-size: 0.88rem;
+            margin-bottom: 16px;
+        }
+
+        .asset-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .asset-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(157, 114, 255, 0.15);
+            color: var(--purple);
+            font-weight: 600;
+        }
+
+        .download-btn {
+            color: var(--cyan);
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s ease;
+        }
+
+        .download-btn:hover {
+            gap: 10px;
+        }
+
+        /* BADGES & ACHIEVEMENTS */
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .badge i {
+            color: var(--orange);
+            font-size: 1.1rem;
+        }
+
+        .badge:hover {
+            background: rgba(0, 234, 255, 0.1);
+            border-color: var(--cyan);
+            transform: translateY(-3px);
+            color: var(--cyan);
+            box-shadow: 0 5px 15px var(--cyan-glow);
+        }
+
+        /* EMPTY STATE FOR SEARCH */
+        .empty-search {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        .empty-search i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--purple);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 20px 40px;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--text-sub);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--cyan);
+        }
+
+        /* RESPONSIVE MEDIA QUERIES */
+        @media (max-width: 768px) {
+            nav {
+                border-radius: 20px;
+                padding: 14px 20px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(13, 20, 37, 0.95);
+                backdrop-filter: blur(25px);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero {
+                padding-top: 120px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .accordion-header {
+                padding: 18px 20px;
+                font-size: 1rem;
+            }
+
+            .lesson {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-gamepad"></i> Hazrd Labs
+        </a>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#paths">Paths</a></li>
+            <li><a href="#godot">Godot</a></li>
+            <li><a href="#unity">Unity</a></li>
+            <li><a href="#python">Python</a></li>
+            <li><a href="#assets">Assets</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="badge-pill">
+            <i class="fa-solid fa-sparkles"></i> Project-Based Game Dev Academy
+        </div>
+
+        <div class="hero-content">
+            <h1>Build Games.<br>Learn Code.<br>Create Worlds.</h1>
+            <p>
+                Hazrd Labs empowers future developers to build real, published-quality games using Godot, Unity, and Python through full project pipelines instead of isolated tutorials.
+            </p>
+
+            <div class="buttons">
+                <a class="btn btn-primary" href="#paths">
+                    <i class="fa-solid fa-rocket"></i> Start Learning
+                </a>
+                <a class="btn btn-secondary" href="https://github.com/drhazrd" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i> GitHub Repository
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEARNING PATHS OVERVIEW -->
+    <section id="paths">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-solid fa-compass" style="color: var(--cyan);"></i> Learning Paths
+            </h2>
+            <p class="section-sub">Choose your game engine path and master real game development.</p>
+        </div>
+
+        <div class="grid">
+            <!-- Godot Card -->
+            <div class="card">
+                <div>
+                    <div class="card-header-icon" style="color: var(--cyan);">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <h3>Coin Quest</h3>
+                    <p class="path-subtitle">Godot 4 Developer Path</p>
+                    <p class="card-desc">Master 2D nodes, GDScript syntax, physics body colliders, signal architecture, and smooth platformer character controllers.</p>
+                </div>
+                <div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Curriculum Progress</span>
+                            <span>10 Levels</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unity Card -->
+            <div class="card">
+                <div>
+                    <div class="card-header-icon" style="color: var(--purple);">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3>Beatdown Arena</h3>
+                    <p class="path-subtitle" style="color: var(--purple);">Unity 3D Developer Path</p>
+                    <p class="card-desc">Harness Rigidbody physics, C# component scripting, enemy spawner wave controllers, and 3D arena combat mechanics.</p>
+                </div>
+                <div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Curriculum Progress</span>
+                            <span>10 Levels</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Python Card -->
+            <div class="card">
+                <div>
+                    <div class="card-header-icon" style="color: var(--green);">
+                        <i class="fa-brands fa-python"></i>
+                    </div>
+                    <h3>Adventure Quest</h3>
+                    <p class="path-subtitle" style="color: var(--green);">Python Core Developer Path</p>
+                    <p class="card-desc">Build text RPG engines, combat state loops, inventory dictionaries, and object-oriented quest algorithms from scratch.</p>
+                </div>
+                <div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Curriculum Progress</span>
+                            <span>10 Levels</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GODOT PATH -->
+    <section id="godot">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-solid fa-cube" style="color: var(--cyan);"></i> Godot Coin Quest
+            </h2>
+            <p class="section-sub">Learn 2D game mechanics with GDScript and Godot Engine.</p>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 1 • Node Hierarchy & Scenes</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Learn how Godot structures games using node trees and reusable scene instances.</p>
+                        <ul>
+                            <li>Create a <code>Node2D</code> root container scene.</li>
+                            <li>Attach a <code>Sprite2D</code> child node for character visuals.</li>
+                            <li>Assign texture assets to visual nodes in the Inspector.</li>
+                            <li>Save and organize <code>player.tscn</code> in your project files.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 2 • Physics & Collisions</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Configure dynamic physical interactions between entities and environment boundaries.</p>
+                        <ul>
+                            <li>Configure <code>CharacterBody2D</code> for user-controlled entities.</li>
+                            <li>Add <code>CollisionShape2D</code> nodes with rectangular or capsule shapes.</li>
+                            <li>Construct dynamic terrain using <code>StaticBody2D</code> for solid floors and walls.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 3 • Character Controller</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Write standard GDScript velocity logic for responsive movement.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy Script</button>
+<pre><code>extends CharacterBody2D
+
+@export var speed: float = 200.0
+@export var jump_velocity: float = -400.0
+
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+func _physics_process(delta):
+    # Add gravity when in air
+    if not is_on_floor():
+        velocity.y += gravity * delta
+
+    # Handle Jump input
+    if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+        velocity.y = jump_velocity
+
+    # Get horizontal direction
+    var direction = Input.get_axis("ui_left", "ui_right")
+    if direction:
+        velocity.x = direction * speed
+    else:
+        velocity.x = move_toward(velocity.x, 0, speed)
+
+    move_and_slide()</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 4 • Signals & Collectible Coins</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Implement event-driven communication using Area2D signals to detect player overlap.</p>
+                        <ul>
+                            <li>Create an <code>Area2D</code> collectible item node with an animated icon.</li>
+                            <li>Connect the <code>body_entered</code> signal to the main Game Manager script.</li>
+                            <li>Increment coin count variable and trigger audio/visual effects on pickup.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>🏆 Capstone Project • Complete Coin Quest Game</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Combine all fundamental concepts to assemble a polished platformer demo.</p>
+                        <ul>
+                            <li>Responsive platformer movement & mechanics</li>
+                            <li>Animated collectible items & level objective key</li>
+                            <li>Hazards, enemy patrol loops, & respawn checkpoints</li>
+                            <li>HUD user interface with live coin counter & lives meter</li>
+                            <li>Sound effects & dynamic background music player</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UNITY PATH -->
+    <section id="unity">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-solid fa-shield-halved" style="color: var(--purple);"></i> Unity Beatdown Arena
+            </h2>
+            <p class="section-sub">Build high-octane 3D action games with Unity & C#.</p>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 1 • Rigidbody Hero Setup</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Initialize a 3D player GameObject with proper component dependencies.</p>
+                        <ul>
+                            <li>Create a 3D Sphere primitive named Player Hero.</li>
+                            <li>Attach a <code>Rigidbody</code> component and set mass values.</li>
+                            <li>Configure 3D colliders and freeze unwanted rotation axes.</li>
+                            <li>Construct a ground plane arena floor with custom materials.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 2 • C# Physics Movement</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Apply physics forces based on player input axes.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy Script</button>
+<pre><code>using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour 
+{
+    public float speed = 15.0f;
+    private Rigidbody rb;
+
+    void Start() 
+    {
+        rb = GetComponent&lt;Rigidbody&gt;();
+    }
+
+    void FixedUpdate() 
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        rb.AddForce(movement * speed);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 3 • Arena Construction & Environment</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Build dynamic arena boundaries, obstacles, and trigger zones.</p>
+                        <ul>
+                            <li>Layout wall barriers with box colliders to bound movement.</li>
+                            <li>Apply metallic emission materials for sci-fi arena aesthetics.</li>
+                            <li>Setup camera follow scripts targeting the hero character.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 4 • Enemy Spawner Logic</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Instantiate waves of dynamic enemy prefabs at designated spawn locations.</p>
+                        <ul>
+                            <li>Design scalable Enemy Prefabs with automated target-chasing AI.</li>
+                            <li>Write dynamic wave spawner routines using <code>Instantiate()</code>.</li>
+                            <li>Implement timer delays between wave iterations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>🏆 Capstone Project • Beatdown Arena Game</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Deploy a full 3D combat game with enemy waves and game state control.</p>
+                        <ul>
+                            <li>Smooth knockback melee combat physics</li>
+                            <li>Health bar components & player damage reaction</li>
+                            <li>Dynamic boss fight stage during final enemy wave</li>
+                            <li>Start, Pause, Game Over, and Restart UI screens</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PYTHON PATH -->
+    <section id="python">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-brands fa-python" style="color: var(--green);"></i> Python Adventure Quest
+            </h2>
+            <p class="section-sub">Master foundational programming concepts by engineering text RPG games.</p>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 1 • Variables & Input Logic</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Interact with players using standard console input and string formatting.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy Script</button>
+<pre><code># Adventure Quest - Hero Setup
+print("=== WELCOME TO ADVENTURE QUEST ===")
+hero_name = input("What is your hero's name? ")
+player_class = input("Choose Class (Warrior / Mage / Rogue): ")
+
+hp = 100
+gold = 50
+
+print(f"\nWelcome, {hero_name} the {player_class}!")
+print(f"Starting Stats -> HP: {hp} | Gold: {gold}")</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Level 2 • Turn-Based Combat Loop</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Construct dynamic turn-based encounter mechanics using <code>while</code> loops.</p>
+                        <ul>
+                            <li>Randomized damage calculations using Python's <code>random</code> module.</li>
+                            <li>Conditional branching (<code>if/elif/else</code>) for Attack, Defend, or Flee.</li>
+                            <li>Loot reward calculations upon defeating enemies.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>🏆 Capstone Project • Complete Adventure Quest RPG</span>
+                    <span class="icon-toggle"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="accordion-content">
+                    <div class="lesson">
+                        <p>Architect an extensible object-oriented text-based dungeon crawler.</p>
+                        <ul>
+                            <li>Full player inventory management dictionary</li>
+                            <li>Branching story decisions with persistent quest flags</li>
+                            <li>Boss encounter battle with multi-phase mechanics</li>
+                            <li>Game save/load file system with JSON formatting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ASSET LIBRARY -->
+    <section id="assets">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-solid fa-palette" style="color: var(--orange);"></i> Asset Library
+            </h2>
+            <p class="section-sub">Free starter assets to kickstart your game development projects.</p>
+        </div>
+
+        <div class="asset-search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input class="search" id="assetSearch" type="text" placeholder="Search sprites, UI kits, tilesets, sound effects...">
+        </div>
+
+        <div class="gallery" id="assetGallery">
+            <!-- Asset 1 -->
+            <div class="card asset-card" data-title="Fantasy Characters" data-tags="2d character sprite hero warrior">
+                <div class="asset-img-wrapper">
+                    <div class="asset-img-placeholder" style="color: var(--cyan);">
+                        <i class="fa-solid fa-user-ninja"></i>
+                    </div>
+                </div>
+                <div class="asset-body">
+                    <h3>Fantasy Characters</h3>
+                    <p>Pixel-art 2D character sprites with walk, idle, and attack animation frames.</p>
+                    <div class="asset-footer">
+                        <span class="asset-tag">2D Sprites</span>
+                        <a href="#" class="download-btn" onclick="event.preventDefault(); alert('Asset download started!');">
+                            Download <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset 2 -->
+            <div class="card asset-card" data-title="UI Kit Pro" data-tags="ui kit menu buttons icons vector">
+                <div class="asset-img-wrapper">
+                    <div class="asset-img-placeholder" style="color: var(--purple);">
+                        <i class="fa-solid fa-icons"></i>
+                    </div>
+                </div>
+                <div class="asset-body">
+                    <h3>UI Kit Pro</h3>
+                    <p>Cyberpunk and fantasy game buttons, health bars, icons, and menu frames.</p>
+                    <div class="asset-footer">
+                        <span class="asset-tag">UI / Vector</span>
+                        <a href="#" class="download-btn" onclick="event.preventDefault(); alert('Asset download started!');">
+                            Download <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset 3 -->
+            <div class="card asset-card" data-title="Dungeon Tileset" data-tags="dungeon tiles tilemap environment 2d">
+                <div class="asset-img-wrapper">
+                    <div class="asset-img-placeholder" style="color: var(--green);">
+                        <i class="fa-solid fa-chess-board"></i>
+                    </div>
+                </div>
+                <div class="asset-body">
+                    <h3>Dungeon Tileset</h3>
+                    <p>16x16 modular tilemap containing walls, floors, doors, and dungeon hazards.</p>
+                    <div class="asset-footer">
+                        <span class="asset-tag">Tilemap</span>
+                        <a href="#" class="download-btn" onclick="event.preventDefault(); alert('Asset download started!');">
+                            Download <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset 4 -->
+            <div class="card asset-card" data-title="Retro SFX Pack" data-tags="audio sfx sound effects 8-bit retro music">
+                <div class="asset-img-wrapper">
+                    <div class="asset-img-placeholder" style="color: var(--orange);">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
+                </div>
+                <div class="asset-body">
+                    <h3>Retro SFX Pack</h3>
+                    <p>Over 50 vintage 8-bit sound effects for jumps, coin pickups, attacks, and hits.</p>
+                    <div class="asset-footer">
+                        <span class="asset-tag">Audio WAV</span>
+                        <a href="#" class="download-btn" onclick="event.preventDefault(); alert('Asset download started!');">
+                            Download <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-search" id="emptySearch">
+            <i class="fa-solid fa-ghost"></i>
+            <h3>No matching assets found</h3>
+            <p>Try searching for terms like "sprites", "UI", "tileset", or "audio".</p>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-solid fa-trophy" style="color: var(--orange);"></i> Achievements
+            </h2>
+            <p class="section-sub">Track your learning milestones as you master game dev skills.</p>
+        </div>
+
+        <div class="badges">
+            <div class="badge" onclick="toggleBadge(this)">
+                <i class="fa-solid fa-code"></i> First Script
+            </div>
+            <div class="badge" onclick="toggleBadge(this)">
+                <i class="fa-solid fa-layer-group"></i> First Scene
+            </div>
+            <div class="badge" onclick="toggleBadge(this)">
+                <i class="fa-solid fa-cube"></i> Godot Explorer
+            </div>
+            <div class="badge" onclick="toggleBadge(this)">
+                <i class="fa-solid fa-shield-halved"></i> Unity Warrior
+            </div>
+            <div class="badge" onclick="toggleBadge(this)">
+                <i class="fa-brands fa-python"></i> Python Adventurer
+            </div>
+            <div class="badge" onclick="toggleBadge(this)">
+                <i class="fa-solid fa-crown"></i> Game Creator
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© Hazrd Labs Academy • Interactive Game Development Education</p>
+        <p style="margin-top: 8px;">
+            <a href="#paths">Paths</a> • 
+            <a href="#godot">Godot Engine</a> • 
+            <a href="#unity">Unity Engine</a> • 
+            <a href="#python">Python RPG</a> • 
+            <a href="https://github.com/drhazrd" target="_blank" rel="noopener">GitHub</a>
+        </p>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // 1. MOBILE MENU TOGGLE
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileToggle.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.className = 'fa-solid fa-xmark';
+            } else {
+                icon.className = 'fa-solid fa-bars';
+            }
+        });
+
+        // Close mobile nav when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.querySelector('i').className = 'fa-solid fa-bars';
+            });
+        });
+
+        // 2. ACCORDION EXPAND/COLLAPSE LOGIC
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Toggle active class on current accordion item
+                item.classList.toggle('active');
+
+                // Update icon style
+                const icon = header.querySelector('.icon-toggle i');
+                if (icon) {
+                    if (!isActive) {
+                        icon.className = 'fa-solid fa-minus';
+                    } else {
+                        icon.className = 'fa-solid fa-plus';
+                    }
+                }
+            });
+        });
+
+        // 3. REAL-TIME ASSET SEARCH FILTER
+        const searchInput = document.getElementById('assetSearch');
+        const assetCards = document.querySelectorAll('.asset-card');
+        const emptySearch = document.getElementById('emptySearch');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let matches = 0;
+
+            assetCards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                const desc = card.querySelector('.asset-body p').textContent.toLowerCase();
+
+                if (title.includes(query) || tags.includes(query) || desc.includes(query)) {
+                    card.style.display = 'flex';
+                    matches++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (matches === 0) {
+                emptySearch.style.display = 'block';
+            } else {
+                emptySearch.style.display = 'none';
+            }
+        });
+
+        // 4. COPY CODE TO CLIPBOARD FUNCTION
+        function copyCode(button) {
+            const container = button.parentElement;
+            const codeBlock = container.querySelector('code') || container.querySelector('pre');
+            const textToCopy = codeBlock.innerText;
+
+            // Fallback execCommand for cross-browser / iframe support
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            
+            try {
+                document.execCommand('copy');
+                const originalText = button.innerText;
+                button.innerText = 'Copied! ✓';
+                button.style.background = 'var(--green)';
+                button.style.color = '#000';
+
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.background = '';
+                    button.style.color = '';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy code: ', err);
+            }
+
+            document.body.removeChild(tempTextArea);
+        }
+
+        // 5. BADGE INTERACTION
+        function toggleBadge(badgeElement) {
+            badgeElement.style.borderColor = 'var(--green)';
+            badgeElement.style.color = 'var(--green)';
+            const icon = badgeElement.querySelector('i');
+            if (icon) icon.className = 'fa-solid fa-circle-check';
+        }
+    </script>
+</body>
+</html>

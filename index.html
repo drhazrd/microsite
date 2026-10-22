@@ -1,312 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hazrd Labs – Learn Game Dev</title>
 
-<style>
-/* GLOBAL */
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: #0d0d0d;
-    color: #fff;
-    scroll-behavior: smooth;
-}
+<title>Hazrd Labs</title>
 
-/* STICKY NAV */
-nav {
-    position: sticky;
-    top: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(10px);
-    padding: 12px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    border-bottom: 2px solid #333;
-}
+<meta charset="utf-8">
 
-nav a {
-    color: #fff;
-    margin: 0 12px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
-nav a:hover {
-    color: #00eaff;
-}
+<link rel="stylesheet"
+href="src/style.css">
 
-/* HERO SECTION WITH BLUR IMAGE */
-.hero {
-    height: 90vh;
-    background: url('img/hero.jpg') center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-}
+<script defer src="src/app.js"></script>
 
-.hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(6px);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-.hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    font-size: 1.3rem;
-    max-width: 600px;
-}
-
-/* BUTTONS */
-.btn-row {
-    margin-top: 30px;
-}
-
-.btn {
-    padding: 15px 25px;
-    margin: 10px;
-    background: #00eaff;
-    color: #000;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    text-decoration: none;
-}
-
-.btn:hover {
-    background: #00bcd4;
-}
-
-/* SECTIONS */
-section {
-    padding: 80px 20px;
-    max-width: 900px;
-    margin: auto;
-}
-
-h2 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    border-left: 5px solid #00eaff;
-    padding-left: 10px;
-}
-
-/* IMAGE BANNERS */
-.banner {
-    width: 100%;
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 12px;
-    margin-bottom: 25px;
-}
-
-/* COLLAPSIBLE CODE BOXES */
-.collapsible {
-    background: #1a1a1a;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    border: 1px solid #333;
-}
-
-.collapsible:hover {
-    background: #222;
-}
-
-.content {
-    display: none;
-    padding: 15px;
-    background: #111;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-pre {
-    background: #222;
-    padding: 15px;
-    border-radius: 8px;
-    overflow-x: auto;
-}
-
-/* ASSET BOXES */
-.asset-box {
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px 0;
-    border: 1px solid #333;
-}
-</style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
-    <div><strong>Hazrd Labs</strong></div>
-    <div>
-        <a href="#unity">Unity</a>
-        <a href="#godot">Godot</a>
-        <a href="#python">Python</a>
-        <a href="#assets">Assets</a>
-    </div>
-</nav>
 
-<!-- HERO -->
-<div class="hero">
-    <div class="hero-content">
-        <h1>Hazrd Labs</h1>
-        <p>A game dev haven for kids 8–14. Learn Unity, Godot, and Python by building real games.</p>
-
-        <div class="btn-row">
-            <a class="btn" href="#unity">Unity Zone</a>
-            <a class="btn" href="#godot">Godot Zone</a>
-            <a class="btn" href="#python">Python Zone</a>
-        </div>
-    </div>
+<div class="logo">
+Hazrd Labs
 </div>
 
-<!-- UNITY -->
-<section id="unity">
-    <div class="banner" style="background-image:url('img/unity.png');"></div>
-    <h2>Unity Zone</h2>
-    <p>Learn C# and build 2D games with Unity.</p>
+<div class="nav-links">
 
-    <div class="collapsible">▶ Player Movement Example</div>
-    <div class="content">
-        <pre><code>
-using UnityEngine;
+<a href="gallery.html">Assets</a>
 
-public class PlayerMove : MonoBehaviour {
-    public float speed = 5f;
+<a href="paths/godot.html">Godot</a>
 
-    void Update() {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        transform.Translate(new Vector3(x, y, 0) * speed * Time.deltaTime);
-    }
-}
-        </code></pre>
-    </div>
+<a href="paths/unity.html">Unity</a>
 
-    <div class="collapsible">▶ Collectible Script</div>
-    <div class="content">
-        <pre><code>
-using UnityEngine;
+<a href="paths/python.html">Python</a>
 
-public class Collect : MonoBehaviour {
-    void OnTriggerEnter2D(Collider2D col) {
-        Destroy(gameObject);
-    }
-}
-        </code></pre>
-    </div>
+</div>
+
+</nav>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-grid">
+
+<div>
+
+<h1>
+Build Games.
+Learn Code.
+Create Worlds.
+</h1>
+
+<p>
+
+Hazrd Labs teaches game development
+through complete projects.
+
+Build a Godot platformer,
+a Unity beat-em-up,
+or a Python adventure game.
+
+</p>
+
+<div class="hero-buttons">
+
+<a
+href="paths/godot.html"
+class="btn btn-primary">
+Start Learning
+</a>
+
+<a
+href="https://github.com/drhazrd/hazrd-labs"
+class="btn btn-secondary">
+GitHub Repository
+</a>
+
+</div>
+
+</div>
+
+<div class="card">
+<h2>Your Journey</h2>
+
+<div class="roadmap">
+
+<div class="level-card">
+<span>Choose Path</span>
+🚀
+</div>
+
+<div class="level-card">
+<span>Learn Skills</span>
+💻
+</div>
+
+<div class="level-card">
+<span>Build Game</span>
+🎮
+</div>
+
+<div class="level-card">
+<span>Publish Project</span>
+🏆
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- GODOT -->
-<section id="godot">
-    <div class="banner" style="background-image:url('img/godot.png');"></div>
-    <h2>Godot Zone</h2>
-    <p>Use GDScript to create awesome 2D games.</p>
+<section class="paths">
 
-    <div class="collapsible">▶ Player Movement (GDScript)</div>
-    <div class="content">
-        <pre><code>
-extends CharacterBody2D
+<div class="container">
 
-var speed = 200
+<h2>Learning Paths</h2>
 
-func _physics_process(delta):
-    var input = Vector2(
-        Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
-        Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-    )
-    velocity = input.normalized() * speed
-    move_and_slide()
-        </code></pre>
-    </div>
+<div class="path-grid">
+
+<a href="paths/godot.html"
+class="card path-card reveal">
+
+<h3>Godot Developer Path</h3>
+
+<p>
+
+Build Coin Quest.
+
+Learn nodes,
+signals,
+scenes,
+UI,
+audio,
+and game architecture.
+
+</p>
+
+<div class="path-badge">
+10 Levels
+</div>
+
+</a>
+
+<a href="paths/unity.html"
+class="card path-card reveal">
+
+<h3>Unity Developer Path</h3>
+
+<p>
+
+Build Beatdown Arena.
+
+Learn combat,
+3D movement,
+spawning,
+UI,
+boss fights,
+and game systems.
+
+</p>
+
+<div class="path-badge">
+10 Levels
+</div>
+
+</a>
+
+<a href="paths/python.html"
+class="card path-card reveal">
+
+<h3>Python Developer Path</h3>
+
+<p>
+
+Build Adventure Quest.
+
+Learn logic,
+game loops,
+inventory systems,
+and RPG mechanics.
+
+</p>
+
+<div class="path-badge">
+10 Levels
+</div>
+
+</a>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- PYTHON -->
-<section id="python">
-    <div class="banner" style="background-image:url('img/python.png');"></div>
-    <h2>Python Zone</h2>
-    <p>Start coding with Python and make simple games using Pygame.</p>
+<footer>
 
-    <div class="collapsible">▶ First Python Program</div>
-    <div class="content">
-        <pre><code>
-print("Welcome to Hazrd Labs!")
-        </code></pre>
-    </div>
+© Hazrd Labs
 
-    <div class="collapsible">▶ Pygame Character Move</div>
-    <div class="content">
-        <pre><code>
-import pygame
-pygame.init()
-
-screen = pygame.display.set_mode((600,400))
-player = pygame.Rect(300,200,40,40)
-
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]: player.x -= 5
-    if keys[pygame.K_RIGHT]: player.x += 5
-
-    screen.fill((0,0,0))
-    pygame.draw.rect(screen,(0,255,0),player)
-    pygame.display.update()
-        </code></pre>
-    </div>
-</section>
-
-<!-- ASSETS -->
-<section id="assets">
-    <h2>Asset Downloads</h2>
-    <div class="asset-box">🎨 Character Sprites</div>
-    <div class="asset-box">🧱 Tilemaps</div>
-    <div class="asset-box">🔊 Sound Effects</div>
-    <div class="asset-box">📦 UI Packs</div>
-</section>
-
-<script>
-/* COLLAPSIBLE PANELS */
-const collapsibles = document.querySelectorAll(".collapsible");
-collapsibles.forEach(col => {
-    col.addEventListener("click", () => {
-        col.classList.toggle("active");
-        const content = col.nextElementSibling;
-        content.style.display = content.style.display === "block" ? "none" : "block";
-    });
-});
-</script>
+</footer>
 
 </body>
 </html>
