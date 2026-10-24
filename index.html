@@ -1,19 +1,498 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>Hazrd Labs</title>
-
-<meta charset="utf-8">
+<meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width,initial-scale=1">
+content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet"
-href="src/style.css">
+<title>Hazrd Labs Academy</title>
 
-<script defer src="src/app.js"></script>
+<style>
+
+:root{
+
+--bg:#050914;
+--bg2:#0d1425;
+--cyan:#00eaff;
+--purple:#9d72ff;
+--green:#2bfd9c;
+--orange:#ffb84d;
+
+--glass:rgba(255,255,255,.05);
+--border:rgba(255,255,255,.1);
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:Inter,Arial,sans-serif;
+
+color:white;
+
+background:
+radial-gradient(circle at top,
+#16243c,
+#0b111b 45%,
+#040608 100%);
+}
+
+/* NAV */
+
+nav{
+
+position:fixed;
+
+top:15px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:min(1200px,95%);
+
+padding:15px 25px;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+z-index:1000;
+
+border-radius:999px;
+
+backdrop-filter:blur(20px);
+
+background:rgba(255,255,255,.05);
+
+border:1px solid var(--border);
+
+}
+
+.logo{
+
+font-size:1.25rem;
+font-weight:700;
+
+color:var(--cyan);
+
+}
+
+.nav-links{
+
+display:flex;
+gap:20px;
+
+}
+
+.nav-links a{
+
+color:white;
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+color:var(--cyan);
+
+}
+
+/* HERO */
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:100px 20px;
+
+}
+
+.hero-content{
+
+max-width:900px;
+text-align:center;
+
+}
+
+.hero-content h1{
+
+font-size:4rem;
+
+line-height:1.1;
+
+margin-bottom:20px;
+
+}
+
+.hero-content p{
+
+font-size:1.25rem;
+
+color:#cfcfcf;
+
+line-height:1.7;
+
+}
+
+.buttons{
+
+margin-top:35px;
+
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+
+}
+
+.btn{
+
+padding:15px 25px;
+
+border-radius:15px;
+
+text-decoration:none;
+
+font-weight:700;
+
+transition:.3s;
+
+}
+
+.btn-primary{
+
+background:var(--cyan);
+color:black;
+
+}
+
+.btn-secondary{
+
+border:1px solid rgba(255,255,255,.15);
+
+color:white;
+
+}
+
+.btn:hover{
+
+transform:translateY(-5px);
+
+}
+
+/* SECTIONS */
+
+section{
+
+padding:100px 20px;
+
+max-width:1200px;
+margin:auto;
+
+}
+
+.section-title{
+
+font-size:3rem;
+margin-bottom:15px;
+
+}
+
+.section-sub{
+
+color:#bbb;
+
+margin-bottom:40px;
+
+}
+
+/* CARDS */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(300px,1fr));
+
+gap:25px;
+
+}
+
+.card{
+
+background:var(--glass);
+
+border:1px solid var(--border);
+
+border-radius:25px;
+
+padding:25px;
+
+backdrop-filter:blur(15px);
+
+transition:.35s;
+
+}
+
+.card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:
+0 0 40px
+rgba(0,234,255,.15);
+
+}
+
+/* PROGRESS */
+
+.progress{
+
+height:18px;
+
+background:#1d2432;
+
+border-radius:999px;
+
+overflow:hidden;
+
+margin-top:10px;
+
+}
+
+.progress-fill{
+
+height:100%;
+
+background:linear-gradient(
+90deg,
+var(--cyan),
+var(--purple)
+);
+
+}
+
+/* ACCORDION */
+
+.accordion{
+
+margin-top:25px;
+
+}
+
+.accordion-item{
+
+margin-bottom:15px;
+
+border-radius:18px;
+
+overflow:hidden;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+.accordion-header{
+
+padding:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+cursor:pointer;
+
+font-weight:700;
+
+}
+
+.accordion-content{
+
+max-height:0;
+
+overflow:hidden;
+
+transition:max-height .5s ease;
+
+}
+
+.accordion-content.active{
+
+max-height:1500px;
+
+}
+
+.lesson{
+
+padding:25px;
+
+border-top:
+1px solid rgba(255,255,255,.08);
+
+}
+
+.lesson ul{
+
+margin-top:15px;
+
+padding-left:20px;
+
+}
+
+.lesson li{
+
+margin-bottom:8px;
+
+}
+
+/* CODE */
+
+pre{
+
+margin-top:15px;
+
+background:#111827;
+
+padding:15px;
+
+border-radius:12px;
+
+overflow:auto;
+
+}
+
+/* BADGES */
+
+.badges{
+
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:20px;
+
+}
+
+.badge{
+
+background:rgba(255,255,255,.08);
+
+padding:10px 15px;
+
+border-radius:999px;
+
+}
+
+/* GALLERY */
+
+.search{
+
+width:100%;
+
+padding:15px;
+
+margin-bottom:25px;
+
+border-radius:15px;
+
+background:#111827;
+
+border:1px solid #293245;
+
+color:white;
+
+}
+
+.gallery{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(240px,1fr));
+
+gap:20px;
+
+}
+
+.asset{
+
+overflow:hidden;
+
+}
+
+.asset img{
+
+width:100%;
+
+height:180px;
+
+object-fit:cover;
+
+display:block;
+
+transition:.4s;
+
+}
+
+.asset:hover img{
+
+transform:scale(1.05);
+
+}
+
+/* FOOTER */
+
+footer{
+
+padding:50px;
+
+text-align:center;
+
+color:#888;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero-content h1{
+
+font-size:2.5rem;
+
+}
+
+.nav-links{
+
+display:none;
+
+}
+
+}
+
+</style>
 
 </head>
 
@@ -26,86 +505,241 @@ Hazrd Labs
 </div>
 
 <div class="nav-links">
-
-<a href="gallery.html">Assets</a>
-
-<a href="godot-path.html">Godot</a>
-
-<a href="unity-path.html">Unity</a>
-
-<a href="python-path.html">Python</a>
-
+<a href="#paths">Paths</a>
+<a href="#godot">Godot</a>
+<a href="#unity">Unity</a>
+<a href="#python">Python</a>
+<a href="#assets">Assets</a>
 </div>
 
 </nav>
 
 <section class="hero">
 
-<div class="container">
-
-<div class="hero-grid">
-
-<div>
+<div class="hero-content">
 
 <h1>
-Build Games.
-Learn Code.
+Build Games.<br>
+Learn Code.<br>
 Create Worlds.
 </h1>
 
 <p>
 
-Hazrd Labs teaches game development
-through complete projects.
-
-Build a Godot platformer,
-a Unity beat-em-up,
-or a Python adventure game.
+Hazrd Labs teaches kids how to make games using
+Godot, Unity and Python through complete projects
+instead of disconnected tutorials.
 
 </p>
 
-<div class="hero-buttons">
+<div class="buttons">
 
 <a
-href="paths/godot.html"
-class="btn btn-primary">
+class="btn btn-primary"
+href="#paths">
+
 Start Learning
+
 </a>
 
 <a
-href="https://github.com/drhazrd/hazrd-labs"
-class="btn btn-secondary">
+class="btn btn-secondary"
+href="https://github.com/drhazrd">
+
 GitHub Repository
+
 </a>
 
 </div>
+
+</div>
+
+</section>
+
+<section id="paths">
+
+<h2 class="section-title">
+Learning Paths
+</h2>
+
+<p class="section-sub">
+
+Choose a path and build a real game.
+
+</p>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>🟦 Coin Quest</h3>
+
+<p>Godot Developer Path</p>
+
+<div class="progress">
+<div class="progress-fill" style="width:100%"></div>
+</div>
+
+<p>10 Levels</p>
 
 </div>
 
 <div class="card">
-<h2>Your Journey</h2>
 
-<div class="roadmap">
+<h3>⚔️ Beatdown Arena</h3>
 
-<div class="level-card">
-<span>Choose Path</span>
-🚀
+<p>Unity Developer Path</p>
+
+<div class="progress">
+<div class="progress-fill" style="width:100%"></div>
 </div>
 
-<div class="level-card">
-<span>Learn Skills</span>
-💻
+<p>10 Levels</p>
+
 </div>
 
-<div class="level-card">
-<span>Build Game</span>
-🎮
+<div class="card">
+
+<h3>🐍 Adventure Quest</h3>
+
+<p>Python Developer Path</p>
+
+<div class="progress">
+<div class="progress-fill" style="width:100%"></div>
 </div>
 
-<div class="level-card">
-<span>Publish Project</span>
-🏆
+<p>10 Levels</p>
+
 </div>
+
+</div>
+
+</section>
+
+<section id="godot">
+
+<h2 class="section-title">
+🟦 Godot Coin Quest
+</h2>
+
+<div class="accordion">
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+Level 1 • Node Hierarchy & Scenes
+<span>+</span>
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<p>Create player.tscn using Node2D and Sprite2D.</p>
+
+<ul>
+<li>Create Node2D root</li>
+<li>Add Sprite2D</li>
+<li>Assign texture</li>
+<li>Save player.tscn</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+Level 2 • Physics & Collisions
+<span>+</span>
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+<li>RigidBody2D</li>
+<li>CollisionShape2D</li>
+<li>StaticBody2D floor</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+Level 3 • Character Controller
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<pre>
+extends CharacterBody2D
+
+var speed = 200
+
+func _physics_process(delta):
+    var dir = Input.get_axis(
+    "left",
+    "right")
+
+    velocity.x = dir * speed
+
+    move_and_slide()
+</pre>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+Level 4 • Signals & Coins
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<p>Create collectible coins.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+🏆 Capstone • Coin Quest
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+<li>Movement</li>
+<li>Coins</li>
+<li>Obstacles</li>
+<li>UI</li>
+<li>Audio</li>
+<li>Menus</li>
+</ul>
 
 </div>
 
@@ -117,85 +751,304 @@ GitHub Repository
 
 </section>
 
-<section class="paths">
+<section id="unity">
 
-<div class="container">
+<h2 class="section-title">
 
-<h2>Learning Paths</h2>
+⚔️ Unity Beatdown Arena
 
-<div class="path-grid">
+</h2>
 
-<a href="paths/godot.html"
-class="card path-card reveal">
+<div class="accordion">
 
-<h3>Godot Developer Path</h3>
+<div class="accordion-item">
 
-<p>
+<div class="accordion-header">
 
-Build Coin Quest.
-
-Learn nodes,
-signals,
-scenes,
-UI,
-audio,
-and game architecture.
-
-</p>
-
-<div class="path-badge">
-10 Levels
-</div>
-
-</a>
-
-<a href="paths/unity.html"
-class="card path-card reveal">
-
-<h3>Unity Developer Path</h3>
-
-<p>
-
-Build Beatdown Arena.
-
-Learn combat,
-3D movement,
-spawning,
-UI,
-boss fights,
-and game systems.
-
-</p>
-
-<div class="path-badge">
-10 Levels
-</div>
-
-</a>
-
-<a href="paths/python.html"
-class="card path-card reveal">
-
-<h3>Python Developer Path</h3>
-
-<p>
-
-Build Adventure Quest.
-
-Learn logic,
-game loops,
-inventory systems,
-and RPG mechanics.
-
-</p>
-
-<div class="path-badge">
-10 Levels
-</div>
-
-</a>
+Level 1 • Rigidbody Hero
 
 </div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+<li>Create sphere</li>
+<li>Add Rigidbody</li>
+<li>Enable gravity</li>
+<li>Create arena floor</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+
+Level 2 • Movement
+
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<pre>
+float h =
+Input.GetAxis("Horizontal");
+
+float v =
+Input.GetAxis("Vertical");
+
+rb.AddForce(
+new Vector3(h,0,v)
+* speed);
+</pre>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+
+Level 3 • Arena Construction
+
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+<li>Plane</li>
+<li>Walls</li>
+<li>Collisions</li>
+<li>Combat area</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+
+Level 4 • Enemy Spawner
+
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+<li>Spawner</li>
+<li>Instantiate()</li>
+<li>Timers</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+
+Level 5 • Game Manager
+
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+<li>Wave Counter</li>
+<li>Enemy Count</li>
+<li>Start Button</li>
+<li>Stop Button</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+
+🏆 Beatdown Arena Capstone
+
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+
+<li>Combat</li>
+<li>Health</li>
+<li>Boss Fight</li>
+<li>Menus</li>
+<li>Audio</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="python">
+
+<h2 class="section-title">
+🐍 Adventure Quest
+</h2>
+
+<div class="accordion">
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+Level 1 • Variables & Input
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<pre>
+name = input("Name?")
+
+print(
+"Welcome",
+name
+)
+</pre>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+Level 2 • Combat
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<p>Create enemy encounters.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="accordion-item">
+
+<div class="accordion-header">
+🏆 Capstone • Adventure Quest
+</div>
+
+<div class="accordion-content">
+
+<div class="lesson">
+
+<ul>
+<li>Combat</li>
+<li>Inventory</li>
+<li>Quests</li>
+<li>Boss Battle</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="assets">
+
+<h2 class="section-title">
+🎨 Asset Library
+</h2>
+
+<input
+class="search"
+type="text"
+placeholder="Search Assets...">
+
+<div class="gallery">
+
+<div class="card asset">
+<img src="https://via.placeholder.com/500x300">
+<h3>Fantasy Characters</h3>
+<p>2D character pack</p>
+</div>
+
+<div class="card asset">
+<img src="https://via.placeholder.com/500x300">
+<h3>UI Kit</h3>
+<p>Menu buttons and icons</p>
+</div>
+
+<div class="card asset">
+<img src="https://via.placeholder.com/500x300">
+<h3>Dungeon Tiles</h3>
+<p>Tileset pack</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+🏅 Achievements
+</h2>
+
+<div class="badges">
+
+<div class="badge">First Script</div>
+<div class="badge">First Scene</div>
+<div class="badge">Godot Explorer</div>
+<div class="badge">Unity Warrior</div>
+<div class="badge">Python Adventurer</div>
+<div class="badge">Game Creator</div>
 
 </div>
 
@@ -203,9 +1056,28 @@ and RPG mechanics.
 
 <footer>
 
-© Hazrd Labs
+© Hazrd Labs Academy
 
 </footer>
+
+<script>
+
+document
+.querySelectorAll(".accordion-header")
+.forEach(button => {
+
+button.addEventListener("click",()=>{
+
+const content =
+button.nextElementSibling;
+
+content.classList.toggle("active");
+
+});
+
+});
+
+</script>
 
 </body>
 </html>
