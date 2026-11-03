@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Width Map Embed Example</title>
+    <style>
+        /* Basic page styling for demonstration */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .content-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+        }
+
+        /* 
+        =========================================
+        METHOD 1: Standard 100% Width 
+        Use this if your WordPress page builder 
+        already has a "Full Width" row/section block.
+        =========================================
+        */
+        .map-standard {
+            width: 100%;
+            height: 450px; /* Adjust height as needed */
+            border: 0;
+        }
+
+        /* 
+        =========================================
+        METHOD 2: Force Full Viewport Width (100vw)
+        Use this if your WordPress theme restricts 
+        your content into a narrow box and you want 
+        the map to break out and touch the screen edges.
+        =========================================
+        */
+        .map-force-full-width {
+            width: 100vw;
+            height: 450px; /* Adjust height as needed */
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-container">
+        <h1>WordPress Map Embed Examples</h1>
+        <p>This box represents your standard WordPress page content area, which is usually restricted to a certain width (e.g., 800px).</p>
+        
+        <h2>Method 1: Standard 100% Container Width</h2>
+        <p>This map fills 100% of the container it is placed inside. You can copy just the iframe tag and paste it into a WordPress Custom HTML block, changing the width attribute to 100%.</p>
+        
+        <!-- Standard iframe embed. Note width="100%" -->
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193309.8450125867!2d-73.13601552802879!3d40.81180295628172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e830e0600c25a1%3A0xc4578b9b47e8ab9b!2sGershow%20Recycling!5e0!3m2!1sen!2sus!4v1714571234567!5m2!1sen!2sus" 
+            class="map-standard" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <h2>Method 2: Forced Edge-to-Edge Width (100vw)</h2>
+        <p>If your WordPress theme keeps the map trapped in a narrow column, apply the <code>.map-force-full-width</code> CSS class. Scroll down to see it break out of this white box and stretch across the entire screen.</p>
+    </div>
+
+    <!-- Forced Full-Width iframe embed -->
+    <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193309.8450125867!2d-73.13601552802879!3d40.81180295628172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e830e0600c25a1%3A0xc4578b9b47e8ab9b!2sGershow%20Recycling!5e0!3m2!1sen!2sus!4v1714571234567!5m2!1sen!2sus" 
+        class="map-force-full-width" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+
+    <div class="content-container">
+        <p><strong>How to use this in WordPress:</strong></p>
+        <ol>
+            <li>Go to Google Maps, find your location, click "Share," and choose "Embed a map."</li>
+            <li>Copy the HTML provided by Google.</li>
+            <li>In WordPress, add a "Custom HTML" block to your page.</li>
+            <li>Paste the iframe code.</li>
+            <li>Change the <code>width="600"</code> (or whatever number is there) to <code>width="100%"</code>.</li>
+            <li>If it's still not full width of the screen, you'll need to use the CSS trick from Method 2 in your theme's customizer.</li>
+        </ol>
+    </div>
+
+</body>
+</html>
